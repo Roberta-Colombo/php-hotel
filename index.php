@@ -71,33 +71,39 @@ if (isset($_GET['parkingOption']) || isset($_GET['category'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style/style.css">
     <title>PHP Hotels</title>
 </head>
 
 <body>
-    <form action="index.php" method="GET">
-        <label>Disponibilit&agrave; parcheggio:</label>
-        <select name="parkingOption" id="parkingOption">
-            <option value="">Seleziona</option>
-            <option value="Sì">Sì</option>
-            <option value="No">No</option>
-        </select>
+    <h1 class="text-center my-5">Cerca un hotel:</h1>
+    <div class="container mt-5">
+        <form action="index.php" method="GET">
+            <label>Disponibilit&agrave; parcheggio:</label>
+            <select name="parkingOption" id="parkingOption">
+                <option value="">Seleziona</option>
+                <option value="Sì">Sì</option>
+                <option value="No">No</option>
+            </select>
 
-        <label>Categoria minima:</label>
-        <select name="category" id="category">
-            <option value="">Seleziona</option>
-            <option value="1">*</option>
-            <option value="2">**</option>
-            <option value="3">***</option>
-            <option value="4">****</option>
-        </select>
-        <button type="submit">Cerca</button>
-    </form>
+            <label class="ms-5">Categoria minima:</label>
+            <select name="category" id="category">
+                <option value="">Seleziona</option>
+                <option value="1">*</option>
+                <option value="2">**</option>
+                <option value="3">***</option>
+                <option value="4">****</option>
+                <option value="5">*****</option>
+            </select>
+            <button class="ms-4 btn btn-dark" type="submit">Cerca</button>
+        </form>
+    </div>
 
-    <div>
-        <table class="table">
+
+    <div class="container pt-5">
+        <table class="table table-striped">
             <thead>
-                <tr>
+                <tr class="table-dark">
                     <th scope="col">Nome</th>
                     <th scope="col">Descrizione</th>
                     <th scope="col">Parcheggio</th>
