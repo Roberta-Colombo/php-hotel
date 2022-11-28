@@ -44,6 +44,19 @@ function booleanToString($hotel)
     return $hotel['parking'] === true ? 'Sì' : 'No';
 }
 
+if (isset($_GET['parkingOption']) && !empty($_GET['parkingOption'])) {
+    $parking = $_GET['parkingOption'];
+    // var_dump($parking);
+
+    $temporary = [];
+    foreach ($hotels as $hotel) {
+        if (booleanToString($hotel) == $parking) {
+            $temporary[] = $hotel;
+        }
+    }
+    $hotels = $temporary;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -59,17 +72,25 @@ function booleanToString($hotel)
 </head>
 
 <body>
+    <label>Disponibilit&agrave; parcheggio:</label>
+    <form action="index.php" method="GET">
+        <select name="parkingOption" id="parkingOption">
+            <option value="">Scegli</option>
+            <option value="Sì">Sì</option>
+            <option value="No">No</option>
+        </select>
+        <button type="submit">Cerca</button>
+    </form>
+
     <div>
-
-
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Parking</th>
-                    <th scope="col">Stars</th>
-                    <th scope="col">Distance to center</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Descrizione</th>
+                    <th scope="col">Parcheggio</th>
+                    <th scope="col">Stelle</th>
+                    <th scope="col">Distanza dal centro</th>
                 </tr>
             </thead>
             <tbody>
@@ -79,9 +100,6 @@ function booleanToString($hotel)
                     echo "<tr>" . "<th>" . $hotel['name'] . "</th>" . "<td>" . $hotel['description'] . "</td>" . "<td>" . booleanToString($hotel) . "</td>" . "<td>" . $hotel['vote'] . "</td>" . "<td>" . $hotel['distance_to_center'] . " km" . "</td>" . "</tr>";
 
                 }
-
-
-
                 ?>
             </tbody>
         </table>
