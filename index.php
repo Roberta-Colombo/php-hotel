@@ -44,19 +44,22 @@ function booleanToString($hotel)
     return $hotel['parking'] === true ? 'Sì' : 'No';
 }
 
-if (isset($_GET['parkingOption']) && !empty($_GET['parkingOption'])) {
+if (isset($_GET['parkingOption']) || isset($_GET['category'])) {
     $parking = $_GET['parkingOption'];
-    // var_dump($parking);
+    $category = $_GET['category'];
 
     $temporary = [];
     foreach ($hotels as $hotel) {
-        if (booleanToString($hotel) == $parking) {
+        if (booleanToString($hotel) == $parking && $hotel['vote'] >= $category) {
             $temporary[] = $hotel;
+        } elseif (empty($_GET['parkingOption']) && !empty($_GET['category'])) {
+            if ($hotel['vote'] >= $category) {
+                $temporary[] = $hotel;
+            }
         }
     }
     $hotels = $temporary;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -72,12 +75,21 @@ if (isset($_GET['parkingOption']) && !empty($_GET['parkingOption'])) {
 </head>
 
 <body>
-    <label>Disponibilit&agrave; parcheggio:</label>
     <form action="index.php" method="GET">
+        <label>Disponibilit&agrave; parcheggio:</label>
         <select name="parkingOption" id="parkingOption">
-            <option value="">Scegli</option>
+            <option value="">Seleziona</option>
             <option value="Sì">Sì</option>
             <option value="No">No</option>
+        </select>
+
+        <label>Categoria minima:</label>
+        <select name="category" id="category">
+            <option value="">Seleziona</option>
+            <option value="1">*</option>
+            <option value="2">**</option>
+            <option value="3">***</option>
+            <option value="4">****</option>
         </select>
         <button type="submit">Cerca</button>
     </form>
